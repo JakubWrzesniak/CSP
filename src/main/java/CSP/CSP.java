@@ -77,8 +77,4 @@ public class CSP <V, D>{
         unassignedVariables.push(unassigned);
         return null;
     }
-
-    public List<Map<V,D>> backtrackingSearch(){
-        return backtrackingSearch(new HashMap<>());
-    }
 }
