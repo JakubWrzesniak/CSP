@@ -11,6 +11,7 @@ public class LCV<V,D> extends ValueHeuristic<V,D>{
 
     @Override
     public void selection(V variable, List<D> values, List<V> unassginedVariables) {
+        if(unassginedVariables.isEmpty()) return;
         Map<D, Integer> res = new HashMap<>();
         for (D val : values) {
             int       counter         = 0;
@@ -25,6 +26,9 @@ public class LCV<V,D> extends ValueHeuristic<V,D>{
                 }
                 res.put(val, counter);
             }
+        }
+        if(res.isEmpty()){
+            System.out.println("NUll");
         }
         values.sort((o1, o2) -> {
             var val1 = res.get(o1);
