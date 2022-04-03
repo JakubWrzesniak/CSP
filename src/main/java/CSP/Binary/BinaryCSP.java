@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public class BinaryCSP extends CSP<Point, Boolean> {
-    private final Integer size;
-    private final Map<Point, Boolean> variables;
+    private final Integer             size;
+    private final Map<Point, Boolean> assignments;
 
     public BinaryCSP(Path path, int size) throws InvalidAlgorithmParameterException {
         super(generateVariables(size), generateDomains(size));
         var data = Utils.readData(path);
-        this.variables = data.getValue0();
+        this.assignments = data.getValue0();
         this.size = data.getValue1();
         if(size != this.size) throw new InvalidAlgorithmParameterException("Invalid size in read file. Current: " + this.size + " Expected: " + size);
         generateConstrains();
@@ -28,7 +28,7 @@ public class BinaryCSP extends CSP<Point, Boolean> {
         for(int i = 0; i < size ; i++){
             for(int j = 0; j < size; j++){
                 var newVar = new Point(i,j);
-                domains.put(newVar, List.of(true, false));
+                domains.put(newVar, new ArrayList<>(List.of(true, false)));
             }
         }
         return domains;
@@ -80,12 +80,12 @@ public class BinaryCSP extends CSP<Point, Boolean> {
         return points;
     }
 
-    public List<Map<Point, Boolean>> backtrackingSearch(){
-       return super.backtrackingSearch(variables);
-    }
-
     public int getSize(){
         return size;
     }
 
+    @Override
+    public Map<Point, Boolean> getAssignments() {
+        return assignments;
+    }
 }

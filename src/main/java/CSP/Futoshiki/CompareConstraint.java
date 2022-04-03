@@ -30,17 +30,11 @@ public class CompareConstraint extends Constraint<Point, Integer> {
             case lt -> {
                 return fv < sv;
             }
-            case gte -> {
-                return fv >= sv;
-            }
-            case lte -> {
-                return fv <= sv;
-            }
         }
         return true;
     }
 
     enum CompareMethod{
-        gt, lt, gte, lte
+        gt, lt
     }
 }

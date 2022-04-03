@@ -1,23 +1,22 @@
 import CSP.Binary.*;
-import CSP.*;
+import CSP.SatisfactionAlgorithms.BacktrackingSearch;
+import CSP.SatisfactionAlgorithms.SatisfactionAlgorithm;
 
 import java.awt.*;
 import java.nio.file.Paths;
 import java.security.InvalidAlgorithmParameterException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Main {
+public class BinaryMain {
     public static void main(String[] args){
         try {
-            List<BinaryCSP> binaries= List.of(new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_6x6"), 6),
-                    new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_8x8"), 8),
-                    new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_10x10"), 10)
-                    );
+            List<SatisfactionAlgorithm<Point, Boolean>> binaries= List.of(new BacktrackingSearch<Point, Boolean>(
+            new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_6x6"), 6)),
+                    new BacktrackingSearch<Point, Boolean>( new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_8x8"), 8)),
+                    new BacktrackingSearch<Point, Boolean>( new BinaryCSP(Paths.get("binary-futoshiki_dane_v1.0/binary_10x10"), 10))
+            );
             binaries.forEach(b -> {
-                var results = b.backtrackingSearch();
+                var results = b.satisfy();
                 for (var res : results) {
                     Utils.printArray(Utils.mapAsArray(res, new Dimension(b.getSize(), b.getSize())));
                     System.out.println("\n------------------\n");

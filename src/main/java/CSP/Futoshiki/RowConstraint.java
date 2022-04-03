@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 public class RowConstraint extends Constraint<Point, Integer> {
-
     public RowConstraint(List<Point> variables) {
         super(variables);
     }
