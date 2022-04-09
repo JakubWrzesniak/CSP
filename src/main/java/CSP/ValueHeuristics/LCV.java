@@ -11,14 +11,14 @@ public class LCV<V,D> extends ValueHeuristic<V,D>{
 
     @Override
     public void selection(V variable, List<V> unassignedValues) {
-
+        var relatedValues = csp.getRelatedNodes(variable);
+        var filteredNodes =   unassignedValues.stream().filter(relatedValues::contains).toList() ;
         Map<D, Integer> res = new HashMap<>();
-
         for (D val : csp.getDomains().get(variable)) {
             int       counter         = 0;
             Map<V, D> localAssignment = new HashMap<>(csp.getAssignments());
             localAssignment.put(variable, val);
-            for (var unassginedVariable : unassignedValues) {
+            for (var unassginedVariable : filteredNodes) {
                 Map<V, D> moreLocalAssignment = new HashMap<>(localAssignment);
                 for (var domain : csp.getDomains().get(unassginedVariable)) {
                     moreLocalAssignment.put(unassginedVariable, domain);
@@ -29,8 +29,8 @@ public class LCV<V,D> extends ValueHeuristic<V,D>{
             }
         }
         csp.getDomains().get(variable).sort((o1, o2) -> {
-            var val1 = res.get(o1);
-            var val2 = res.get(o2);
+            var val1 = res.getOrDefault(o1, -1);
+            var val2 = res.getOrDefault(o2, -1);
             return Integer.compare(val1, val2);
         });
     }

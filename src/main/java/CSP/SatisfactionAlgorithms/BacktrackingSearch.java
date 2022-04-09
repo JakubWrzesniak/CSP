@@ -20,7 +20,7 @@ public class BacktrackingSearch <V,D> extends SatisfactionAlgorithm<V,D> {
         }
         if(getVariableHeuristicMode() == DYNAMIC) variableSelection(unassignedVariables);
         V unassigned = unassignedVariables.pop();
-        if(getValueHeuristicMode() == DYNAMIC) valueSelection(unassigned, unassignedVariables);
+        if(getValueHeuristicMode() == DYNAMIC && !unassignedVariables.isEmpty()) valueSelection(unassigned, unassignedVariables);
         for(D value : csp.getDomains().get(unassigned)){
             totalVisitedNodes++;
             Map<V, D> localAssignment = new HashMap<>(assignment);

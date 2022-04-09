@@ -24,7 +24,7 @@ import static CSP.SatisfactionAlgorithms.SatisfactionAlgorithm.HeuristicMode.NON
 import static CSP.SatisfactionAlgorithms.SatisfactionAlgorithm.HeuristicMode.STATIC;
 
 public  abstract class  SatisfactionAlgorithm <V,D> {
-    public static final List<String> HEADERS = List.of("Date", "CSP", "Solver", "Variable Heuristic", "Value Heuristic", "Duration time", "Number of backs", "Number of checked values", "Time of First solution", "Number of backs to first solution", "Number of checked values to firs solution");
+    public static final List<String> HEADERS = List.of("Date", "CSP", "Size", "Solver", "Variable Heuristic", "Value Heuristic", "Solutions", "Duration time", "Number of backs", "Number of checked values", "Time of First solution", "Number of backs to first solution", "Number of checked values to firs solution");
     private final       List<Map<V,D>> results = new ArrayList<>();
     protected final     CSP<V,D>       csp;
     protected           Pair<VariableHeuristic<V,D>, HeuristicMode> variableHeuristic;
@@ -169,9 +169,11 @@ public  abstract class  SatisfactionAlgorithm <V,D> {
                 csvPrinter.printRecord(
                         LocalDateTime.now(),
                         csp.getClass().getSimpleName(),
+                        getSize(),
                         this.getClass().getSimpleName(),
                         variableHeuristic != null ? variableHeuristic.getValue0().getClass().getSimpleName()  + " " + variableHeuristic.getValue1(): "brak",
                         valueHeuristic != null ? valueHeuristic.getValue0().getClass().getSimpleName()  + " " + valueHeuristic.getValue1(): "brak",
+                        results.size(),
                         totalDurationTime,
                         totalNumberOfBacks,
                         totalVisitedNodes,

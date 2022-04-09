@@ -27,7 +27,7 @@ public class ForwardChecking<V,D> extends SatisfactionAlgorithm<V, D> {
 
        if(getVariableHeuristicMode() == DYNAMIC) variableSelection(unassignedVariables);
         var unassigned = unassignedVariables.pop();
-        var relatedNodes = getRelatedNodes(unassigned);
+        var relatedNodes = csp.getRelatedNodes(unassigned);
         var relatedDomains = domains.entrySet().stream().filter(entry -> relatedNodes.contains(entry.getKey())).collect(Collectors.toMap(Map.Entry::getKey,
                 Map.Entry::getValue));
         var currentDomain = domains.get(unassigned);
@@ -64,12 +64,5 @@ public class ForwardChecking<V,D> extends SatisfactionAlgorithm<V, D> {
             localDomain.put(domainEntry.getKey(), tempDomain);
         }
         return true;
-    }
-
-    private List<V> getRelatedNodes(V variable){
-        ArrayList<V> res =
-                new ArrayList<>(csp.getConstraints(variable).stream().flatMap(c -> c.getVariables().stream()).distinct().toList());
-        res.remove(variable);
-        return res;
     }
 }

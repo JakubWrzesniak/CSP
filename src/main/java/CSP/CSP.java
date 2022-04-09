@@ -33,6 +33,13 @@ public abstract class CSP <V, D>{
         return constraints.get(variable).stream().allMatch(v -> v.satisfied(assignment));
     }
 
+    public List<V> getRelatedNodes(V variable){
+        ArrayList<V> res =
+                new ArrayList<>(getConstraints(variable).stream().flatMap(c -> c.getVariables().stream()).distinct().toList());
+        res.remove(variable);
+        return res;
+    }
+
     public List<V> getVariables(){
         return variables;
     }
