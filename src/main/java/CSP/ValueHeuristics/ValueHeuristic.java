@@ -11,5 +11,5 @@ public abstract class ValueHeuristic<V, D> {
         this.csp = csp;
     }
 
-    public abstract void selection(V variable, List<D> values, List<V> unassignedVariables);
+    public abstract void selection(V variable, List<V> unasignedVariables);
 }

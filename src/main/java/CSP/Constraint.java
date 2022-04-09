@@ -11,4 +11,8 @@ public abstract class Constraint<V, D> {
     }
 
     public abstract boolean satisfied(Map<V,D> assignment);
+
+    public List<V> getVariables(){
+        return variables;
+    }
 }

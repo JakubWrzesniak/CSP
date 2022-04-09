@@ -52,4 +52,9 @@ public abstract class CSP <V, D>{
     public List<Constraint<V,D>> getConstraints(V variable){
         return constraints.get(variable);
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " - " + getSize() + "x" + getSize();
+    }
 }
