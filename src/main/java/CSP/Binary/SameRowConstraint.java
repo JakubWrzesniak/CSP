@@ -19,7 +19,7 @@ public class SameRowConstraint extends Constraint<Point, Boolean> {
     @Override
     public boolean satisfied(Map<Point, Boolean> assignment) {
         for(int i = 0 ; i < firstRow.size(); i ++){
-            if(firstRow.get(i) != secondRow.get(i)) return true;
+            if(firstRow.get(i) != secondRow.get(i) && firstRow.get(i) != null) return true;
         }
         return false;
     }
